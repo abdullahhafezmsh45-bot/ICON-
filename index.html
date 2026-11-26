@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>محرر الأيقونات</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#12414d">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--card:#ffffff;--ink:#12242b;--mut:#5d7078;--line:#d5dfe3;--chip:#eef3f5;--acc:#0a84ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#1b2a30;--ink:#eaf2f4;--mut:#9db0b6;--line:#2f444c;--chip:#263a42}}
+:root[data-theme="dark"]{--card:#1b2a30;--ink:#eaf2f4;--mut:#9db0b6;--line:#2f444c;--chip:#263a42}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;font-family:Cairo,system-ui,sans-serif}
+body{background:linear-gradient(160deg,#12414d 0%,#2b2f6b 55%,#4a2a63 100%);color:#fff}
+.wrap{max-width:440px;margin:0 auto;padding:18px 16px 30px}
+.stage{display:grid;place-items:center;padding:22px 0 18px}
+.wr{--s:64px;flex:none;filter:drop-shadow(0 4px 5px #0004)}
+.ic{position:relative;width:var(--s);height:var(--s);display:grid;place-items:center;box-shadow:inset 0 1px 1px #ffffffa0}
+.ic::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#ffffff4d 0%,#ffffff00 50%,#0000002e 100%)}
+.g{font-size:calc(var(--s)*.5);line-height:1}
+.ic svg{width:56%;height:56%;position:relative;z-index:1}
+.s-oneui{clip-path:var(--sq2)}
+.s-squircle{clip-path:var(--sq)}
+.s-circle{clip-path:circle(50%)}
+.s-square{clip-path:inset(0 round 6%)}
+.s-hex{clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%)}
+.s-diamond{clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.s-star{clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.s-diamond .g,.s-star .g{font-size:calc(var(--s)*.32)}
+.s-diamond svg,.s-star svg{width:36%;height:36%}
+.st-glass{box-shadow:inset 0 0 0 1.5px #ffffff80,inset 0 10px 16px #ffffff50,inset 0 -8px 14px #ffffff38}
+.st-glass::after{background:radial-gradient(90% 60% at 30% 0%,#ffffffcc,#ffffff00 70%),linear-gradient(180deg,#ffffff00 55%,#ffffff40 100%)}
+.st-frost{box-shadow:inset 0 0 0 1.2px #ffffff59,inset 0 8px 14px #ffffff30}
+.st-frost::after{background:linear-gradient(180deg,#ffffff30,#ffffff00 45%,#00000026)}
+.st-dark,.st-black{box-shadow:inset 0 0 0 1.2px #ffffff26,inset 0 6px 10px #ffffff12}
+.st-dark::after,.st-black::after{background:radial-gradient(80% 50% at 50% 0,#ffffff24,#ffffff00 70%)}
+.st-glassdark{box-shadow:inset 0 0 0 1.2px #ffffff45,inset 0 -10px 16px #ffffff26}
+.st-glassdark::after{background:linear-gradient(180deg,#ffffff00 45%,#ffffff22 100%)}
+.big{--s:150px}
+.name{width:100%;max-width:220px;margin-top:12px;text-align:center;background:transparent;border:0;border-bottom:1px solid #ffffff55;color:#fff;font:600 18px Cairo,sans-serif;padding:4px}
+.mine{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px}
+.mine button{background:none;border:0;padding:4px;cursor:pointer;border-radius:14px}
+.mine button.on{background:#ffffff33}
+.mine .wr{--s:40px}
+.card{background:var(--card);color:var(--ink);border-radius:22px;padding:16px}
+.lab{font-size:14px;font-weight:700;margin:0 0 10px}
+.sec{margin-bottom:18px}
+.sec:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.frame{border:2px solid transparent;background:#2b3340;border-radius:16px;padding:8px;cursor:pointer;display:grid;place-items:center}
+.frame .wr{--s:44px}
+.frame.on{border-color:var(--acc)}
+.sw{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px #0003}
+.sw.on{border-color:var(--ink)}
+.pick{width:34px;height:34px;border:0;padding:0;background:none;border-radius:50%;overflow:hidden;cursor:pointer}
+input[type=text].gl{width:70px;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:12px;padding:8px;font:18px Cairo,sans-serif;text-align:center}
+.chip{border:0;background:var(--chip);color:var(--ink);border-radius:10px;padding:7px 11px;font:600 13px Cairo,sans-serif;cursor:pointer}
+.chip.on{outline:2px solid var(--acc)}
+.em{font-size:20px;padding:4px 8px}
+.sv{padding:7px;display:grid;place-items:center}
+.sv svg{width:24px;height:24px}
+.bgs .sw{border-radius:10px;width:44px}
+.pre{border:2px solid transparent;border-radius:14px;padding:8px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;width:calc(33.3% - 7px);color:#fff;font:600 11px Cairo,sans-serif}
+.pre .tri{display:flex;gap:4px}
+.pre .wr{--s:24px}
+.pre.on{border-color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mine" id="mine"></div>
+  <div class="stage">
+    <div id="prev"></div>
+    <input class="name" id="nm" maxlength="14" aria-label="اسم الأيقونة">
+  </div>
+  <div class="card">
+    <div class="sec"><p class="lab">أنماط جاهزة (من الصور)</p><div class="row" id="pres"></div></div>
+    <div class="sec"><p class="lab">الإطار</p><div class="row" id="frames"></div></div>
+    <div class="sec"><p class="lab">الطابع</p><div class="row" id="style"></div></div>
+    <div class="sec"><p class="lab">لون الأيقونة</p><div class="row" id="cols"></div></div>
+    <div class="sec"><p class="lab">الرمز</p><div class="row" id="svgs"></div></div>
+    <div class="sec"><p class="lab">لون الرمز</p><div class="row" id="gcs"></div></div>
+    <div class="sec">
+      <p class="lab">إيموجي أو حرف أو صورة</p>
+      <div class="row">
+        <input type="text" class="gl" id="gl" maxlength="4" aria-label="الرمز">
+        <button class="chip" id="up">صورة من جهازك</button>
+        <button class="chip" id="noimg" hidden>رجوع للرمز</button>
+        <input type="file" id="file" accept="image/*" hidden>
+      </div>
+      <div class="row" id="ems" style="margin-top:10px"></div>
+    </div>
+    <div class="sec"><p class="lab">الخلفية</p><div class="row bgs" id="bgs"></div></div>
+    <div class="sec"><button class="chip" id="all">طبّق الإطار والطابع واللون على كل الأيقونات</button></div>
+  </div>
+</div>
+<script>
+const P=[['#ff9a8b','#ff4d6d'],['#ffd86f','#fc6262'],['#7ee8a8','#16a085'],['#6dd5fa','#2980f0'],['#c3a6ff','#6c4bff'],['#ff9ff3','#d63a9d'],['#f6f6f6','#aab4bd'],['#4b5563','#111827']];
+const GC=['#ffffff','#d7dde2','#19e07a','#2aa8ff','#ff2fa0','#ffb020','#ff4f7a','#9b7bff','#ffe14d'];
+const SH=['oneui','squircle','circle','square','hex','diamond','star'];
+const ST=[['plain','عادي'],['glass','زجاجي iOS 26'],['frost','زجاج مثلج'],['dark','داكن'],['black','أسود'],['glassdark','زجاج داكن']];
+const BG=['linear-gradient(160deg,#12414d,#2b2f6b 55%,#4a2a63)','linear-gradient(160deg,#050a3a,#1b2bd0 60%,#050a3a)','linear-gradient(160deg,#3b4bb8,#6f7fe6 50%,#2c3a8c)','linear-gradient(160deg,#10151c,#262d36)','linear-gradient(160deg,#10224f,#a8715a 50%,#0c3a9a)','radial-gradient(120% 80% at 70% 20%,#2f3cff,#0a1470 45%,#02052b)','linear-gradient(120deg,#7c8290 0%,#4a4f5c 40%,#10141c 75%)','linear-gradient(160deg,#050a14,#4b5a78 50%,#8493b6)','radial-gradient(90% 70% at 70% 15%,#5b6770,#1d2127 60%,#14171c)','radial-gradient(90% 70% at 50% 50%,#7080ee,#3b4bb8 60%,#2a3680)','linear-gradient(120deg,#0a1a4a 0%,#a87358 45%,#0b3a9c 80%)'];
+const PRE=[['مثلج أزرق','frost',0,5],['رمادي داكن','dark',0,6],['داكن ملون','dark',1,7],['أسود ملون','black',1,8],['زجاج داكن','glassdark',0,9],['زجاج داكن ملون','glassdark',1,10]];
+const COL={phone:'#19e07a',chat:'#2aa8ff',flower:'#ff2fa0',camera:'#ffffff',pin:'#1fa2ff',gear:'#d7dde2',note:'#ffb020',music:'#ff4f7a'};
+function applyPre(p){icons.forEach(i=>{i.s='oneui';i.st=p[1];i.gc=p[2]?(COL[i.svg]||'#ffffff'):'#ffffff'});bgi=p[3]}
+const EM=['😀','⭐','❤️','🔥','🎧','🌙','🍕','🚀'];
+const petals=[0,60,120,180,240,300].map(a=>'<ellipse cx="12" cy="6" rx="3.2" ry="4" transform="rotate('+a+' 12 12)"/>').join('');
+const SVG={
+phone:'<path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>',
+chat:'<path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 7.7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6zM12 7.7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6zM16 7.7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/>',
+flower:petals,
+camera:'<path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zM12 8.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4z"/>',
+pin:'<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>',
+gear:'<path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>',
+note:'<path d="M19 3H4.99C3.89 3 3 3.9 3 5l.01 14c0 1.1.89 2 1.99 2h10l6-6V5c0-1.1-.9-2-2-2zM7 8h10v2H7V8zm5 6H7v-2h5v2zm2 5.5V14h5.5L14 19.5z"/>',
+music:'<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>',
+clock:'<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>',
+mail:'<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>',
+heart:'<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>',
+star:'<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>'};
+const base=[['الهاتف','phone','#19e07a'],['الرسائل','chat','#2aa8ff'],['الصور','flower','#ff2fa0'],['الكاميرا','camera','#ffffff'],['الخرائط','pin','#1fa2ff'],['الإعدادات','gear','#d7dde2'],['الملاحظات','note','#ffb020'],['الموسيقى','music','#ff4f7a']];
+let icons=base.map(b=>({name:b[0],svg:b[1],gc:b[2],g:'⭐',col:P[3],s:'oneui',st:'dark',img:null})),cur=0,bgi=0;
+try{const o=JSON.parse(localStorage.getItem('icons-v3')||'null');if(o&&Array.isArray(o.icons)&&o.icons.length){icons=o.icons;bgi=o.bgi||0}}catch(e){}
+const $=id=>document.getElementById(id);
+function sq(n){const p=[];for(let k=0;k<72;k++){const t=k/72*2*Math.PI,c=Math.cos(t),s=Math.sin(t);p.push((50+Math.sign(c)*Math.pow(Math.abs(c),2/n)*50).toFixed(2)+'% '+(50+Math.sign(s)*Math.pow(Math.abs(s),2/n)*50).toFixed(2)+'%')}return 'polygon('+p.join(',')+')'}
+document.documentElement.style.setProperty('--sq',sq(5));
+document.documentElement.style.setProperty('--sq2',sq(4));
+function el(t,c,txt){const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
+function save(){try{localStorage.setItem('icons-v3',JSON.stringify({icons,bgi}))}catch(e){}}
+function mix(h){const n=parseInt(h.slice(1),16),r=n>>16,g=n>>8&255,b=n&255,f=c=>Math.round(c+(255-c)*.4);return '#'+[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}
+function bg(i){
+  if(i.img)return 'center/cover url("'+i.img+'")';
+  const st=i.st||'plain',a=i.col[0],b=i.col[1];
+  if(st==='dark')return 'linear-gradient(180deg,#3c3d42,#232428)';
+  if(st==='black')return 'linear-gradient(180deg,#1c1c1f,#050506)';
+  if(st==='frost')return 'linear-gradient(180deg,color-mix(in srgb,'+a+' 45%,transparent),color-mix(in srgb,'+b+' 30%,transparent))';
+  if(st==='glassdark')return 'linear-gradient(180deg,#04050b 0%,#0a0d1acc 40%,color-mix(in srgb,'+b+' 40%,#0a0d1a99) 100%)';
+  return 'linear-gradient(180deg,'+(st==='glass'?mix(a):a)+','+b+')';
+}
+function mk(i,extra){
+  const d=el('div','ic s-'+i.s+' st-'+(i.st||'plain'));
+  d.style.background=bg(i);d.style.color=i.gc||'#fff';
+  if(!i.img){
+    if(i.svg&&SVG[i.svg]){const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.innerHTML='<g fill="currentColor" fill-rule="evenodd">'+SVG[i.svg]+'</g>';d.append(s)}
+    else d.append(el('span','g',i.g));
+  }
+  const w=el('div','wr'+(extra?' '+extra:''));w.append(d);return w;
+}
+function render(){
+  const i=icons[cur];
+  document.body.style.background=BG[bgi];
+  $('prev').replaceChildren(mk(i,'big'));
+  if(document.activeElement!==$('nm'))$('nm').value=i.name;
+  if(document.activeElement!==$('gl'))$('gl').value=(i.img||i.svg)?'':i.g;
+  $('noimg').hidden=!i.img;
+  $('mine').replaceChildren(...icons.map((k,n)=>{const b=el('button',n===cur?'on':'');b.setAttribute('aria-label',k.name);b.append(mk(k));b.onclick=()=>{cur=n;render()};return b}));
+  $('frames').replaceChildren(...SH.map(s=>{const b=el('button','frame'+(i.s===s?' on':''));b.setAttribute('aria-label','إطار '+s);b.append(mk({...i,s}));b.onclick=()=>{i.s=s;render();save()};return b}));
+  $('style').replaceChildren(...ST.map(([k,t])=>{const b=el('button','chip'+((i.st||'plain')===k?' on':''),t);b.onclick=()=>{i.st=k;render();save()};return b}));
+  const cols=P.map(p=>{const b=el('button','sw'+(!i.img&&i.col[0]===p[0]?' on':''));b.style.background='linear-gradient(145deg,'+p[0]+','+p[1]+')';b.setAttribute('aria-label','لون');b.onclick=()=>{i.col=p;i.img=null;render();save()};return b});
+  const c=el('input','pick');c.type='color';c.value=/^#[0-9a-f]{6}$/i.test(i.col[1])?i.col[1]:'#2980f0';c.setAttribute('aria-label','لون مخصص');
+  c.onchange=()=>{i.col=[mix(c.value),c.value];i.img=null;render();save()};
+  $('cols').replaceChildren(...cols,c);
+  $('svgs').replaceChildren(...Object.keys(SVG).map(k=>{const b=el('button','chip sv'+(i.svg===k&&!i.img?' on':''));b.setAttribute('aria-label',k);b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd">'+SVG[k]+'</g></svg>';b.onclick=()=>{i.svg=k;i.img=null;render();save()};return b}));
+  const gs=GC.map(g=>{const b=el('button','sw'+((i.gc||'#ffffff')===g?' on':''));b.style.background=g;b.setAttribute('aria-label','لون الرمز');b.onclick=()=>{i.gc=g;render();save()};return b});
+  const gp=el('input','pick');gp.type='color';gp.value=/^#[0-9a-f]{6}$/i.test(i.gc||'')?i.gc:'#ffffff';gp.setAttribute('aria-label','لون رمز مخصص');
+  gp.onchange=()=>{i.gc=gp.value;render();save()};
+  $('gcs').replaceChildren(...gs,gp);
+  $('pres').replaceChildren(...PRE.map(p=>{const b=el('button','pre'+(i.st===p[1]&&bgi===p[3]?' on':''));b.style.background=BG[p[3]];const t=el('div','tri');['phone','chat','music'].forEach(k=>t.append(mk({svg:k,s:'oneui',st:p[1],gc:p[2]?COL[k]:'#ffffff',col:P[3],g:'',img:null})));b.append(t,el('span','',p[0]));b.onclick=()=>{applyPre(p);render();save()};return b}));
+  $('bgs').replaceChildren(...BG.map((g,n)=>{const b=el('button','sw'+(n===bgi?' on':''));b.style.background=g;b.setAttribute('aria-label','خلفية');b.onclick=()=>{bgi=n;render();save()};return b}));
+}
+$('ems').replaceChildren(...EM.map(e=>{const b=el('button','chip em',e);b.onclick=()=>{const i=icons[cur];i.g=e;i.svg=null;i.img=null;render();save()};return b}));
+$('nm').oninput=e=>{icons[cur].name=e.target.value;save()};
+$('gl').oninput=e=>{if(e.target.value){const i=icons[cur];i.g=e.target.value;i.svg=null;i.img=null;render();save()}};
+$('noimg').onclick=()=>{icons[cur].img=null;render();save()};
+$('all').onclick=()=>{const a=icons[cur];icons.forEach(i=>{i.s=a.s;i.col=a.col;i.st=a.st});render();save()};
+$('up').onclick=()=>$('file').click();
+$('file').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();im.onload=()=>{
+    const c=document.createElement('canvas');c.width=c.height=256;
+    const m=Math.min(im.width,im.height);
+    c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,256,256);
+    icons[cur].img=c.toDataURL('image/jpeg',.85);render();save();
+  };im.src=r.result};
+  r.readAsDataURL(f);e.target.value='';
+};
+render();
+</script>
+<script>if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){navigator.serviceWorker.register('sw.js').catch(function(){})}</script>
+</body>
+</html>
