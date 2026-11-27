@@ -20,11 +20,17 @@ jobs:
       - name: Prepare web files
         run: |
           mkdir -p www
-          cp index.html manifest.json sw.js icon-192.png icon-512.png www/
+          cp index.html manifest.json sw.js www/
+      - name: Generate icon from code
+        run: |
+          pip install pillow
+          python make_icon.py
       - name: Add Android project
         run: |
           npx cap add android
           npx cap sync android
+      - name: Generate app icons
+        run: npx @capacitor/assets generate --android
       - name: Build debug APK
         working-directory: android
         run: |
